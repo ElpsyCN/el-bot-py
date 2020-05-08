@@ -44,12 +44,12 @@ group:
     # 自带禁言功能，当群管理名额不够的时候。
     - text: lock
       sender: 具有权限的QQ号
-      operator: 
+      operator:
         - ban_all
       response: text{开启全员禁言}
     # 禁言指定QQ号
     - text: lock(?:\s)([0-9]+)
       sender: 具有权限的QQ号
-      operator: 
+      operator:
         - ban(15s){$0}
       response: text{恭喜$0喜提禁言套餐}
