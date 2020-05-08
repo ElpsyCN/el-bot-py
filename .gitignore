@@ -1,10 +1,15 @@
 # custom
+# 自定义配置目录
+config/custom/
+# python 虚拟环境
 el-env
+# mirai 相关依赖
 mirai-console-wrapper-*.jar
 mirai-api-http-*.jar
 content/
 display.json
 device.json
+
 .vscode
 .env
 
