@@ -19,7 +19,6 @@
 
 # 触发范围包括 friend（好友消息触发），group（群消息触发）以及 global（好友以及群消息均可触发）
 
-
 # 触发条件
 # 触发条件关键字后可跟一个任意字符，也可以不写，如 text, text0, textA 的功能均相同。
 #   text:         str                           当接收到的消息完全与 str 相同时触发，x 表示可以为空的任意字符。
@@ -45,16 +44,16 @@
 #                   $0 通常表示接收到的消息，$1~$n 则表示正则表达式对应的分组（详情请见「触发条件」）
 #   operation:    lock all | lock qq             开启全员禁言 | 禁言指定QQ
 
-
-
 # 当收到「你好」或者 hello 时发送「你好啊」
 global:
   - when:
-      textA: 你好
-      textB: hello
+      text:
+        - 你好
+        - hello
+        - hi
+        - hei
     do:
       text: 你好啊
-
 
 # 当受到的好友消息包含「在么」时发送指定图片
 friend:
@@ -62,19 +61,3 @@ friend:
       contains: 在么
     do:
       local_image: /usr/不在.jpg
-
-
-group:
-  # 当有新成员入群时发送「欢迎新成员XXX加入」
-  - when:
-      on: new member
-    do: 
-      textA: 欢迎新成员
-      var: $0
-      textB: 加入
-  # 当有人说 say xxxx 时@发送人并发送 xxx
-  - when:
-      matches: say(?:\s)(.*)
-    do:
-      at: sender
-      var: $0

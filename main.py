@@ -4,11 +4,10 @@ import os
 
 import config
 
-print(config.setting)
 # httpapi所在主机的地址端口, 如果 setting.yml 文件里字段 "enableWebsocket" 的值为 "true" 则需要将 "/" 换成 "/ws", 否则将接收不到消息.
-mirai_api_http_locate = 'localhost:' + str(config.setting['port'])
+mirai_api_http_locate = 'localhost:' + str(config.setting['port']) + '/'
 if config.setting['enableWebsocket']:
-    mirai_api_http_locate += '/ws'
+    mirai_api_http_locate += 'ws'
 
 app = Mirai(
     f"mirai://{mirai_api_http_locate}?authKey={config.setting['authKey']}&qq={config.data['qq']}")
@@ -20,6 +19,7 @@ last_msg = ''
 @app.receiver("GroupMessage")
 async def msg_indeed(app: Mirai, group: Group, message: MessageChain):
     global last_msg
+    print(message.toString())
     if message.__root__[1].text == last_msg:
         await app.sendGroupMessage(group, [
             Plain(text="确实")

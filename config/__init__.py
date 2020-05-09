@@ -1,8 +1,17 @@
-import yaml
+from . import app
+
 # plugins/MiraiAPIHTTP setting
-stream = open('./plugins/MiraiAPIHTTP/setting.yml')
-setting = yaml.safe_load(stream)
+mirai_setting = app.Config('./plugins/MiraiAPIHTTP/setting.yml')
+# mirai_setting.print_json()
+setting = mirai_setting.data
+
+# default config
+default = app.Config('./config/default/')
+# default.print_json()
 
 # custom config
-stream = open('./config/config.yml')
-data = yaml.safe_load(stream)
+custom = app.Config('./config/custom/')
+# custom .print_json()
+
+data = default.data.copy()
+data.update(custom.data)
