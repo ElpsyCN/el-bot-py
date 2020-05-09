@@ -1,4 +1,4 @@
-# 本文件为默认配置文件，其中内置了一些机器人的行为，你可以在config/custom文件夹下放入自定义的配置文件。
+# 本文件为默认配置文件，其中内置了一些机器人的行为，你可以在 config/custom 文件夹下放入自定义的配置文件。
 # 如果自定义配置文件和默认配置文件有冲突则自定义配置覆盖默认配置。
 # 当自定义配置出现冲突则机器人行为不确定，本软件也不检查自定义文件之间的冲突情况。
 
@@ -14,40 +14,40 @@
 #       do:
 #         至少一个动作
 #   ...
-# 当一个when下有多个触发条件时代表满足任意一个条件即可触发
-# 当一个do下有多个动作时代表这些动作按照从上到下的顺序依次执行
+# 当一个 when 下有多个触发条件时代表满足任意一个条件即可触发
+# 当一个 do 下有多个动作时代表这些动作按照从上到下的顺序依次执行
 
-# 触发范围包括friend（好友消息触发），group（群消息触发）以及global（好友以及群消息均可触发）
+# 触发范围包括 friend（好友消息触发），group（群消息触发）以及 global（好友以及群消息均可触发）
 
 
 # 触发条件
-# 触发条件关键字后可跟一个任意字符，也可以不写如text, text0, textA的功能均相同。
-#   text:        str                            当接收到的消息完全与str相同时触发，x表示可以为空的任意字符。
-#   contains:     str                           当接收到的消息包含str时触发
-#   matches：     pattern                       当接收到的消息与pattern对应正则表达式匹配时触发
+# 触发条件关键字后可跟一个任意字符，也可以不写，如 text, text0, textA 的功能均相同。
+#   text:         str                           当接收到的消息完全与 str 相同时触发，x 表示可以为空的任意字符。
+#   contains:     str                           当接收到的消息包含 str 时触发
+#   matches：     pattern                       当接收到的消息与 pattern 对应正则表达式匹配时触发
 #                 允许使用正则表达式的分组功能来声明一个变量
 #                 如 say(?:\s)(.*)
-#                 当消息为‘say hello’的时候变量$1='hello'
+#                 当消息为 say hello 的时候变量 $1=hello
 #                 正则表达式分组对应的变量从1开始标号，每次递增1，$1, $2, $3 ....
 #   at:           me | qq | all                 当机器人被@时触发 | 当指定QQ号被@时触发 | 当@全体成员时触发
 #   on:           lock | lock all | new member  当某根被禁言时触发 | 当全员禁言时触发 | 当有新成员假如时触发
 
 # 动作
-# 动作关键字后可跟一个任意字符，也可以不写如text, text0, textA的功能均相同。
-#   text:        str                            发送str
-#   url_text:     url                           发送url返回的text
-#   url_image:    url                           发送url返回的图片
-#   local_text    path                          发送path对应的文件的内容
-#   local_image   path                          发送path对应的图片
-#   json_text:    key#url                       发送url返回的json中指定key的文本
+# 动作关键字后可跟一个任意字符，也可以不写，如 text, text0, textA 的功能均相同。
+#   text:         str                           发送 str
+#   url_text:     url                           发送 url 返回的text
+#   url_image:    url                           发送 url 返回的图片
+#   local_text    path                          发送 path 对应的文件的内容
+#   local_image   path                          发送 path 对应的图片
+#   json_text:    key#url                       发送 url返回的 json 中指定 key 的文本
 #   at:           sender | all | qq             @消息发送者 | @全体成员 | @指定QQ号
-#   var:          $n                            使用‘触发条件’中声明的一些变量，一个var只能使用一个变量
-#                   $0通常表示接收到的消息，$1~$n则表示正则表达式对应的分组（详情请见‘触发条件’）
-#   operation:    loc all | lock qq             开启全员禁言 | 禁言指定QQ
+#   var:          $n                            使用「触发条件」中声明的一些变量，一个 var 只能使用一个变量
+#                   $0 通常表示接收到的消息，$1~$n 则表示正则表达式对应的分组（详情请见「触发条件」）
+#   operation:    lock all | lock qq             开启全员禁言 | 禁言指定QQ
 
 
 
-# 当收到你好或者hello时发送你好啊
+# 当收到「你好」或者 hello 时发送「你好啊」
 global:
   - when:
       textA: 你好
@@ -56,7 +56,7 @@ global:
       text: 你好啊
 
 
-# 当受到的好友消息包含‘在么’时发送指定图片
+# 当受到的好友消息包含「在么」时发送指定图片
 friend:
   - when:
       contains: 在么
@@ -65,14 +65,14 @@ friend:
 
 
 group:
-  # 当有新成员入群时发送欢迎新成员XXX加入
+  # 当有新成员入群时发送「欢迎新成员XXX加入」
   - when:
       on: new member
     do: 
       textA: 欢迎新成员
       var: $0
       textB: 加入
-  # 当有人说say xxxx时ar发送人并发送xxx
+  # 当有人说 say xxxx 时@发送人并发送 xxx
   - when:
       matches: say(?:\s)(.*)
     do:
