@@ -1,55 +1,20 @@
-# 本文件为默认配置文件，其中内置了一些机器人的行为，你可以在 config/custom 文件夹下放入自定义的配置文件。
-# 如果自定义配置文件和默认配置文件有冲突则自定义配置覆盖默认配置。
-# 当自定义配置出现冲突则机器人行为不确定，本软件也不检查自定义文件之间的冲突情况。
-
-# 本配置文件用于定义机器人行为，通过配置行为触发条件以及具体行为来完成机器人的配置。
-# 一个条配置通常具有下面的结构
-#   触发范围:
-#     - when:
-#         至少一个触发条件
-#       do:
-#         至少一个动作
-#     - when:
-#         至少一个触发条件
-#       do:
-#         至少一个动作
-#   ...
-# 当一个 when 下有多个触发条件时代表满足任意一个条件即可触发
-# 当一个 do 下有多个动作时代表这些动作按照从上到下的顺序依次执行
-
-# 触发范围包括 friend（好友消息触发），group（群消息触发）以及 global（好友以及群消息均可触发）
-
-# 触发条件
-#   text:         str                           当接收到的消息完全与 str 相同时触发，x 表示可以为空的任意字符。
-#   contains:     str                           当接收到的消息包含 str 时触发
-#   matches：     pattern                       当接收到的消息与 pattern 对应正则表达式匹配时触发
-#   at:           me | qq | all                 当机器人被@时触发 | 当指定QQ号被@时触发 | 当@全体成员时触发
-#   on:           lock | lock all | new member  当某根被禁言时触发 | 当全员禁言时触发 | 当有新成员假如时触发
-
-# 动作
-#   text:         str                           发送 str
-#   url_text:     url                           发送 url 返回的text
-#   url_image:    url                           发送 url 返回的图片
-#   local_text    path                          发送 path 对应的文件的内容
-#   local_image   path                          发送 path 对应的图片
-#   json_text:    key#url                       发送 url返回的 json 中指定 key 的文本
-#   at:           sender | all | qq             @消息发送者 | @全体成员 | @指定QQ号
-#   operation:    lock all | lock qq            开启全员禁言 | 禁言指定QQ
-
-# 当收到「你好」或者 hello 时发送「你好啊」
 global:
   - when:
-      text:
-        - 你好
-        - hello
-        - hi
-        - hei
+      message:
+        - type: Plain
+          text: 你好
+      event:
+        - bot-login
     do:
-      text: 你好啊
-
-# 当收到的好友消息包含「在么」时发送指定图片
-friend:
-  - when:
-      contains: 在么
-    do:
-      local_image: /usr/不在.jpg
+      message:
+        - type: Plain
+          text: 你好啊
+        - type: Plain
+          url: 某API
+        - type: Image
+          url: 某图片链接
+        - type: Image
+          path: /usr/hello.jpg
+      operation:
+        - type: mute
+          qq: 123456789
