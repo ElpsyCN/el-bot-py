@@ -1,4 +1,4 @@
-# el-bot-py 已停止开发。相同功能替代者见 [el-bot-js](https://github.com/ElpsyCN/el-bot-py)
+# el-bot-py 已停止开发。相同功能替代者见 [el-bot](https://github.com/ElpsyCN/el-bot)
 
 一个基于 [mirai](https://github.com/mamoe/mirai) 开箱即用的 QQ 机器人
 
